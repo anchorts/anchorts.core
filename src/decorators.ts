@@ -1,21 +1,9 @@
-export type constructor<T> = { new(...args: any[]): T };
-
-export type InjectionToken<T> = string | symbol | constructor<T>;
-
-export type Dictionary<T> = { [key: string]: T };
-
-export const typeInfo = new Map<constructor<any>, any[]>();
-
-export const INJECTION_TOKEN_KEY = 'INJECTION_TOKEN_KEY';
-
-export const PARAMS_KEY = 'design:paramtypes';
+import { constructor, InjectionToken, Dictionary } from "./interfaces";
+import { typeInfo } from "./container";
+import { INJECTION_TOKEN_KEY, PARAMS_KEY } from "./types";
 
 export function inject<T>(token: InjectionToken<T>) {
     return function (target: Object, propertyKey: string, parameterIndex: number) {
-        // console.log(token);
-        // console.log(target);
-        // console.log(propertyKey);
-        // console.log(parameterIndex);
         let injectionTokens = Reflect.getOwnMetadata(INJECTION_TOKEN_KEY, target) || {};
         injectionTokens[parameterIndex] = token;
         Reflect.defineMetadata(INJECTION_TOKEN_KEY, injectionTokens, target);
@@ -30,10 +18,5 @@ export function injectable<T>() {
             params[+key] = injectionTokens[key];
         });
         typeInfo.set(target, params);
-        // console.log(injectionTokens);
-        // console.log(params);
     }
 }
-
-
-

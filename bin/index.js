@@ -80,7 +80,6 @@ var Car = /** @class */ (function () {
     return Car;
 }());
 exports.Car = Car;
-var a = Symbol('a');
 var container = new container_1.Container();
 var car = container.resolve(Car);
 console.log(car.carEngine);

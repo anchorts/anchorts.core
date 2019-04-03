@@ -69,7 +69,6 @@ export class Car {
     }
 }
 
-let a = Symbol('a');
 
 let container = new Container();
 let car = container.resolve(Car);
