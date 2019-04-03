@@ -60,7 +60,8 @@ var WarningLight = /** @class */ (function () {
 }());
 exports.WarningLight = WarningLight;
 var Car = /** @class */ (function () {
-    function Car(carEngine, warningLight) {
+    function Car(pistion, carEngine, warningLight) {
+        this.pistion = pistion;
         this.carEngine = carEngine;
         this.warningLight = warningLight;
     }
@@ -72,9 +73,11 @@ var Car = /** @class */ (function () {
     };
     Car = __decorate([
         decorators_1.injectable(),
-        __param(0, decorators_1.inject(CarEngine)),
-        __param(1, decorators_1.inject(WarningLight)),
-        __metadata("design:paramtypes", [CarEngine,
+        __param(0, decorators_1.inject(Piston)),
+        __param(1, decorators_1.inject(CarEngine)),
+        __param(2, decorators_1.inject(WarningLight)),
+        __metadata("design:paramtypes", [Piston,
+            CarEngine,
             WarningLight])
     ], Car);
     return Car;
@@ -82,6 +85,7 @@ var Car = /** @class */ (function () {
 exports.Car = Car;
 var container = new container_1.Container();
 var car = container.resolve(Car);
+console.log(car);
 console.log(car.carEngine);
 console.log(car.warningLight);
 //# sourceMappingURL=index.js.map

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var decorators_1 = require("./decorators");
+exports.typeInfo = new Map();
 var Container = /** @class */ (function () {
     function Container(parent) {
         this.parent = parent;
@@ -13,7 +13,7 @@ var Container = /** @class */ (function () {
         if (ctor.length === 0) {
             return new ctor();
         }
-        var paramInfo = decorators_1.typeInfo.get(ctor);
+        var paramInfo = exports.typeInfo.get(ctor);
         if (!paramInfo || paramInfo.length === 0) {
             throw "TypeInfo not known for " + ctor;
         }

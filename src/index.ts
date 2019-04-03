@@ -49,13 +49,16 @@ export class WarningLight {
 @injectable()
 export class Car {
 
+    pistion: Piston;
     carEngine: CarEngine;
     warningLight: WarningLight;
 
     constructor(
+        @inject(Piston) pistion: Piston,
         @inject(CarEngine) carEngine: CarEngine,
         @inject(WarningLight) warningLight: WarningLight,
         ) {
+        this.pistion = pistion;
         this.carEngine = carEngine;
         this.warningLight = warningLight;
     }
@@ -72,5 +75,6 @@ export class Car {
 
 let container = new Container();
 let car = container.resolve(Car);
+console.log(car);
 console.log(car.carEngine);
 console.log(car.warningLight);

@@ -1,5 +1,5 @@
 {
-  "name": "anchorts.core",
+  "name": "@anchorts/core",
   "version": "1.0.0",
   "description": "@anchorts/core",
   "main": "index.js",
