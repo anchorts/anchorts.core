@@ -1,23 +1,32 @@
 import 'reflect-metadata';
-import { inject } from './decorators';
+import { inject, injectable } from './decorators';
 
-
+@injectable()
 export class Dog {
     getName() {
         return "Dog";
     }
 }
 
+@injectable()
 export class Cat {
+
+    name: string;
+
+    constructor() {
+        this.name = "Dog";
+    }
+
     getName() {
-        return "Cat";
+        return this.name;
     }
 }
 
-export const type = {
+export const Type = {
     dog: Symbol("Dog"),
 }
 
+@injectable()
 export class Animal {
 
     dog: Dog;

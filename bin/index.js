@@ -14,19 +14,29 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
 const decorators_1 = require("./decorators");
-class Dog {
+let Dog = class Dog {
     getName() {
         return "Dog";
     }
-}
+};
+Dog = __decorate([
+    decorators_1.injectable()
+], Dog);
 exports.Dog = Dog;
-class Cat {
-    getName() {
-        return "Cat";
+let Cat = class Cat {
+    constructor() {
+        this.name = "Dog";
     }
-}
+    getName() {
+        return this.name;
+    }
+};
+Cat = __decorate([
+    decorators_1.injectable(),
+    __metadata("design:paramtypes", [])
+], Cat);
 exports.Cat = Cat;
-exports.type = {
+exports.Type = {
     dog: Symbol("Dog"),
 };
 let Animal = class Animal {
@@ -39,7 +49,8 @@ let Animal = class Animal {
     }
 };
 Animal = __decorate([
-    __param(0, decorators_1.inject(exports.type.dog)),
+    decorators_1.injectable(),
+    __param(0, decorators_1.inject(Dog)),
     __param(1, decorators_1.inject(Cat)),
     __metadata("design:paramtypes", [Dog,
         Cat])
