@@ -4,7 +4,7 @@ export type InjectionToken<T> = string | symbol | constructor<T>;
 
 export type Dictionary<T> = { [key: string]: T };
 
-export const provider = new Map<constructor<any>, any[]>();
+export const typeInfo = new Map<constructor<any>, any[]>();
 
 export const INJECTION_TOKEN_KEY = 'INJECTION_TOKEN_KEY';
 
@@ -25,9 +25,15 @@ export function inject<T>(token: InjectionToken<T>) {
 export function injectable<T>() {
     return function (target: constructor<T>) {
         let params: any[] = Reflect.getOwnMetadata(PARAMS_KEY, target) || [];
-        let injectionTokens = Reflect.getOwnMetadata(INJECTION_TOKEN_KEY, target) || {};
-        console.log(injectionTokens);
-        console.log(params);
+        let injectionTokens: Dictionary<InjectionToken<any>> = Reflect.getOwnMetadata(INJECTION_TOKEN_KEY, target) || {};
+        Object.keys(injectionTokens).forEach(key => {
+            params[+key] = injectionTokens[key];
+        });
+        typeInfo.set(target, params);
+        // console.log(injectionTokens);
+        // console.log(params);
     }
 }
+
+
 

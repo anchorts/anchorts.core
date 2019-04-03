@@ -1,20 +1,14 @@
 import 'reflect-metadata';
 import { inject, injectable } from './decorators';
+import { Container } from './container';
+
 
 @injectable()
-export class Dog {
-    getName() {
-        return "Dog";
-    }
-}
-
-@injectable()
-export class Cat {
-
+export class Piston {
     name: string;
-
+    
     constructor() {
-        this.name = "Dog";
+        this.name = 'Piston';
     }
 
     getName() {
@@ -22,25 +16,62 @@ export class Cat {
     }
 }
 
-export const Type = {
-    dog: Symbol("Dog"),
+@injectable()
+export class CarEngine {
+    name: string;
+    pistion: Piston;
+
+    constructor(
+        @inject(Piston) pistion: Piston
+    ) {
+        this.name = 'Car Engine';
+        this.pistion = pistion;
+    }
+
+    getName() {
+        return this.name;
+    }
 }
 
 @injectable()
-export class Animal {
+export class WarningLight {
+    name: string;
 
-    dog: Dog;
-    cat: Cat;
-
-    constructor(
-        @inject(Dog) dog: Dog,
-        @inject(Cat) cat: Cat,
-        ) {
-        this.dog = dog;
-        this.cat = cat;
+    constructor() {
+        this.name = 'Warning light';
     }
 
-    getDogName() {
-        console.log(this.dog.getName());
+    getName() {
+        return this.name;
     }
 }
+
+@injectable()
+export class Car {
+
+    carEngine: CarEngine;
+    warningLight: WarningLight;
+
+    constructor(
+        @inject(CarEngine) carEngine: CarEngine,
+        @inject(WarningLight) warningLight: WarningLight,
+        ) {
+        this.carEngine = carEngine;
+        this.warningLight = warningLight;
+    }
+
+    getEngineName() {
+        console.log(this.carEngine.getName());
+    }
+
+    getWarningLightName() {
+        console.log(this.warningLight.getName());
+    }
+}
+
+let a = Symbol('a');
+
+let container = new Container();
+let car = container.resolve(Car);
+console.log(car.carEngine);
+console.log(car.warningLight);

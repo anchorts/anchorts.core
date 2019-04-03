@@ -13,46 +13,76 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("reflect-metadata");
-const decorators_1 = require("./decorators");
-let Dog = class Dog {
-    getName() {
-        return "Dog";
+var decorators_1 = require("./decorators");
+var container_1 = require("./container");
+var Piston = /** @class */ (function () {
+    function Piston() {
+        this.name = 'Piston';
     }
-};
-Dog = __decorate([
-    decorators_1.injectable()
-], Dog);
-exports.Dog = Dog;
-let Cat = class Cat {
-    constructor() {
-        this.name = "Dog";
-    }
-    getName() {
+    Piston.prototype.getName = function () {
         return this.name;
+    };
+    Piston = __decorate([
+        decorators_1.injectable(),
+        __metadata("design:paramtypes", [])
+    ], Piston);
+    return Piston;
+}());
+exports.Piston = Piston;
+var CarEngine = /** @class */ (function () {
+    function CarEngine(pistion) {
+        this.name = 'Car Engine';
+        this.pistion = pistion;
     }
-};
-Cat = __decorate([
-    decorators_1.injectable(),
-    __metadata("design:paramtypes", [])
-], Cat);
-exports.Cat = Cat;
-exports.Type = {
-    dog: Symbol("Dog"),
-};
-let Animal = class Animal {
-    constructor(dog, cat) {
-        this.dog = dog;
-        this.cat = cat;
+    CarEngine.prototype.getName = function () {
+        return this.name;
+    };
+    CarEngine = __decorate([
+        decorators_1.injectable(),
+        __param(0, decorators_1.inject(Piston)),
+        __metadata("design:paramtypes", [Piston])
+    ], CarEngine);
+    return CarEngine;
+}());
+exports.CarEngine = CarEngine;
+var WarningLight = /** @class */ (function () {
+    function WarningLight() {
+        this.name = 'Warning light';
     }
-    getDogName() {
-        console.log(this.dog.getName());
+    WarningLight.prototype.getName = function () {
+        return this.name;
+    };
+    WarningLight = __decorate([
+        decorators_1.injectable(),
+        __metadata("design:paramtypes", [])
+    ], WarningLight);
+    return WarningLight;
+}());
+exports.WarningLight = WarningLight;
+var Car = /** @class */ (function () {
+    function Car(carEngine, warningLight) {
+        this.carEngine = carEngine;
+        this.warningLight = warningLight;
     }
-};
-Animal = __decorate([
-    decorators_1.injectable(),
-    __param(0, decorators_1.inject(Dog)),
-    __param(1, decorators_1.inject(Cat)),
-    __metadata("design:paramtypes", [Dog,
-        Cat])
-], Animal);
-exports.Animal = Animal;
+    Car.prototype.getEngineName = function () {
+        console.log(this.carEngine.getName());
+    };
+    Car.prototype.getWarningLightName = function () {
+        console.log(this.warningLight.getName());
+    };
+    Car = __decorate([
+        decorators_1.injectable(),
+        __param(0, decorators_1.inject(CarEngine)),
+        __param(1, decorators_1.inject(WarningLight)),
+        __metadata("design:paramtypes", [CarEngine,
+            WarningLight])
+    ], Car);
+    return Car;
+}());
+exports.Car = Car;
+var a = Symbol('a');
+var container = new container_1.Container();
+var car = container.resolve(Car);
+console.log(car.carEngine);
+console.log(car.warningLight);
+//# sourceMappingURL=index.js.map
