@@ -24,7 +24,7 @@ export class Animal {
     cat: Cat;
 
     constructor(
-        @inject(type.dog) dog: Dog,
+        @inject(Dog) dog: Dog,
         @inject(Cat) cat: Cat,
         ) {
         this.dog = dog;
