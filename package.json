@@ -1,0 +1,27 @@
+{
+  "name": "anchorts.core",
+  "version": "1.0.0",
+  "description": "@anchorts/core",
+  "main": "index.js",
+  "scripts": {
+    "clean": "vnrm bin",
+    "build": "tsc",
+    "start": "node ./bin/index.js",
+    "dev": "npm run clean && npm run build && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anchorts/anchorts.core.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anchorts/anchorts.core/issues"
+  },
+  "homepage": "https://github.com/anchorts/anchorts.core#readme",
+  "devDependencies": {
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^3.4.1",
+    "vnrm": "0.0.11"
+  }
+}
